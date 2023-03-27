@@ -1,5 +1,7 @@
 name: action1
-
+env:
+  APPLICATION_NAME: "MYFLASK"
+  PACKAGE_NAME    : "ABOBUS_ver_${{ github.sha }}"
 on:
   push:
     branches:
@@ -12,6 +14,10 @@ jobs:
     steps: 
     - name: Print Hello Message
       run:  echo "Hello world from testing"
+      
+    - name: Execute few commands
+      run : |
+        echo "app is ${{ env.APPLICATION_NAME}}"
   
   my_deploy:
     runs-on: ubuntu-latest
@@ -19,4 +25,6 @@ jobs:
     steps: 
     - name: Print Hello Message
       run:  echo "Hello world from deploy"
-  
+    
+    - name: Printing Deployment package
+      run: echo "$ paketik eto {{ env.PACKAGE_NAME}}"
